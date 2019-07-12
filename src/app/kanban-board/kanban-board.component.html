@@ -1,0 +1,128 @@
+<div class="row  mx-5 mt-5">
+  <div class="col col-lg-12">
+    <div class="row">
+
+      <div class="col-md-4">
+        <div class="border-box">
+          <h6 class="text-center">Active</h6>
+          <div *ngFor="let lstdata of lstKanban">
+            <div *ngIf="lstdata.active">
+              <div class="mb-2">
+                Name: {{lstdata.name}}
+                <label> <input type="checkbox" class="mx-2" [checked]=lstdata.inprocess (change)="inProcess(lstdata)">In
+                  Process</label>
+                <label> <input type="checkbox" class="mx-2" [checked]=lstdata.inactive (change)="inActive(lstdata)">In
+                  Active</label>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <div class="border-box">
+          <h6 class="text-center">In Process</h6>
+          <div *ngFor="let lstdata of lstKanban">
+            <div *ngIf="lstdata.inprocess">
+              <div class="mb-2">
+                Name: {{lstdata.name}}
+                <label> <input type="checkbox" class="mx-2" [checked]=lstdata.active
+                    (change)="_active(lstdata)">Active</label>
+                <label> <input type="checkbox" class="mx-2" [checked]=lstdata.inactive (change)="inActive(lstdata)">In
+                  Active</label>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <div class="border-box">
+          <h6 class="text-center"> In Active</h6>
+          <div *ngFor="let lstdata of lstKanban">
+            <div *ngIf="lstdata.inactive">
+              <div class="mb-2">
+                Name: {{lstdata.name}}
+                <label> <input type="checkbox" class="mx-2" [checked]=lstdata.active
+                    (change)="_active(lstdata)">Active</label>
+                <label> <input type="checkbox" class="mx-2" [checked]=lstdata.inprocess (change)="inProcess(lstdata)">In
+                  Process</label>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+<div class="mx-5 my-5 ">
+  <div class="row  mx-5 mb-4">
+    <button class="btn btn-info btn-sm mx-5" (click)="ModalShowAdd()"><i class="fa fa-plus"></i>&nbsp; Add</button>
+  </div>
+  <div class="row  mx-5 ">
+    <table class=" table-bordered">
+
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>All</th>
+          <th>Active</th>
+          <th>In Process</th>
+          <th>In Active</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <ng-container *ngFor="let lstdata of lstKanban">
+          <tr *ngIf="lstdata.all">
+            <td>{{lstdata.name }}</td>
+            <td> <input type="checkbox" class="mx-2" [disabled]="isdisabled" [checked]=lstdata.all></td>
+            <td> <input type="checkbox" class="mx-2" [checked]=lstdata.active (change)="_active(lstdata)"></td>
+            <td> <input type="checkbox" class="mx-2" [checked]=lstdata.inprocess (change)="inProcess(lstdata)"></td>
+            <td> <input type="checkbox" class="mx-2" [checked]=lstdata.inactive (change)="inActive(lstdata)"></td>
+          </tr>
+        </ng-container>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+
+<!-- Modal fade -->
+<div class="modal fade" #addRecord="bs-modal" bsModal role="dialog">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Add Record</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="close()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="kanbanForm">
+          <div class="row">
+            <div class="col col-lg-12 col-md-12">
+              <div class="form-group">
+                <label for="name"><b> Name</b></label>
+                <input class="form-control" formControlName="name" type="text">
+                <span class="text-danger"
+                  *ngIf="kanbanForm.get('name').hasError('required') && kanbanForm.get('name').touched ">
+                  First Name is required
+                </span>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-danger float-left btn-sm" (click)="close()">Close</button>
+        <button class="btn btn-primary btn-sm" (click)="add_Record(i)">Save</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- modal end -->
