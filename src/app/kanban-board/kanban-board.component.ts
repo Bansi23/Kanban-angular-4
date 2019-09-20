@@ -17,6 +17,9 @@ export class KanbanBoardComponent implements OnInit {
   inactive: boolean = false;
   isdisabled: boolean = true;
 
+
+
+
   @ViewChild('addRecord', name) addRec: ModalDirective;
 
   ModalShowAdd() {
@@ -26,6 +29,7 @@ export class KanbanBoardComponent implements OnInit {
   close() {
     this.addRec.hide();
   }
+  //#region add task
   add_Record() {
     if (this.kanbanForm.valid) {
       let kanbanForm = this.kanbanForm.value;
@@ -33,14 +37,17 @@ export class KanbanBoardComponent implements OnInit {
       if (index > -1) {
         this.lstKanban.splice(index, 1, kanbanForm);
       } else {
-        kanbanForm.id = (new Date()).getTime();
+        kanbanForm.id = this.lstKanban.lengh + 1;
         this.lstKanban.push(kanbanForm);
         kanbanForm.all = true;
+        //localStorage.setItem("addedTask", JSON.stringify(this.lstKanban));
       }
       this.close();
     }
   }
+  //#endregion add record
 
+  //#region active
   _active(index) {
     this.all = false;
     this.active = true;
@@ -54,8 +61,12 @@ export class KanbanBoardComponent implements OnInit {
       this.lstKanban.splice(index, 1)
     }
   }
+  //#endregion  active
+
+
+  //#region inprocess
   inProcess(index) {
-   this.all = false;
+    this.all = false;
     index.all = this.all;
     this.active = false;
     this.inactive = false;
@@ -67,7 +78,10 @@ export class KanbanBoardComponent implements OnInit {
       this.lstKanban.splice(index, 1)
     }
   }
+  //#endregion inprocess
 
+
+  //#region inactive
   inActive(index) {
     this.all = false;
     index.all = this.all;
@@ -78,18 +92,19 @@ export class KanbanBoardComponent implements OnInit {
     index.active = this.active;
     index.inactive = this.inactive
     if (this.all = false) {
-      this.lstKanban.splice(index, 1)
+      this.lstKanban.splice(index, 1);
     }
   }
-
+  //#endregion inactive
 
   constructor(private fb: FormBuilder, private _cS: CommonService) { }
 
   ngOnInit() {
+    document.querySelector('body').classList.add('back-box');
     this.kanbanForm = this.fb.group({
       name: ['', Validators.required],
     });
-    this.lstKanban = this._cS.kanbanData();
+    this.lstKanban = this._cS.kanbanData(); // service data
     this.lstKanban.map(x => {
       x.all = this.all,
         x.active = this.active,

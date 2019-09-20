@@ -7,9 +7,9 @@ export class CommonService {
 
   kanbanData() {
     return   [
-      { id: 1, name: 'Task1' },
-      { id: 2, name: 'Task2'},
-      { id: 3, name: 'Task3'},
+      { id: 1, name: 'Login page design and development' },
+      { id: 2, name: 'Register page design development with Validation'},
+      { id: 3, name: 'Home page design'},
 
     ]
   }

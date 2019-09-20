@@ -2,3 +2,7 @@
 
 @import "~bootstrap/dist/css/bootstrap.css";
 @import "~font-awesome/css/font-awesome.css";
+
+.back-box {
+    background-color: rgb(238, 245, 245) !important;
+  }

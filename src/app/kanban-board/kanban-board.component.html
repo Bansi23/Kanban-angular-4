@@ -2,80 +2,96 @@
   <div class="col col-lg-12">
     <div class="row">
 
+
+      <!-- Active -->
       <div class="col-md-4">
         <div class="border-box">
-          <h6 class="text-center">Active</h6>
-          <div *ngFor="let lstdata of lstKanban">
+          <h6 class="text-center text-info">Active</h6>
+          <hr>
+          <div *ngFor="let lstdata of lstKanban let i= index">
             <div *ngIf="lstdata.active">
               <div class="mb-2">
-                Name: {{lstdata.name}}
-                <label> <input type="checkbox" class="mx-2" [checked]=lstdata.inprocess (change)="inProcess(lstdata)">In
-                  Process</label>
-                <label> <input type="checkbox" class="mx-2" [checked]=lstdata.inactive (change)="inActive(lstdata)">In
-                  Active</label>
+                <div class=" border-card">
+                  <div [ngClass]="{'text-info': lstdata.active}"> {{i+1}}: {{lstdata.name}}</div>
+                  <label class="text-danger"> <input type="checkbox" class="mx-2 " [checked]=lstdata.inprocess
+                      (change)="inProcess(lstdata)">In
+                    Process</label>
+                  <label class="text-success"> <input type="checkbox" class="mx-2 " [checked]=lstdata.inactive
+                      (change)="inActive(lstdata)">In
+                    Active</label>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
+      <!-- EndActive -->
 
+        <!-- InProcess -->
       <div class="col-md-4">
         <div class="border-box">
-          <h6 class="text-center">In Process</h6>
-          <div *ngFor="let lstdata of lstKanban">
+          <h6 class="text-center text-danger">In Process</h6>
+          <hr>
+          <div *ngFor="let lstdata of lstKanban let i= index">
             <div *ngIf="lstdata.inprocess">
               <div class="mb-2">
-                Name: {{lstdata.name}}
-                <label> <input type="checkbox" class="mx-2" [checked]=lstdata.active
-                    (change)="_active(lstdata)">Active</label>
-                <label> <input type="checkbox" class="mx-2" [checked]=lstdata.inactive (change)="inActive(lstdata)">In
-                  Active</label>
+                <div class=" border-card">
+                  <div [ngClass]="{'text-danger': lstdata.inprocess}"> {{i+1}}: {{lstdata.name}}</div>
+                  <label class="text-info"> <input type="checkbox" class="mx-2 " [checked]=lstdata.active
+                      (change)="_active(lstdata)">Active</label>
+                  <label class="text-success"> <input type="checkbox" class="mx-2 " [checked]=lstdata.inactive
+                      (change)="inActive(lstdata)">In
+                    Active</label>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
+       <!-- EndInProcess -->
 
+          <!-- inActive -->
       <div class="col-md-4">
         <div class="border-box">
-          <h6 class="text-center"> In Active</h6>
-          <div *ngFor="let lstdata of lstKanban">
+          <h6 class="text-center text-success"> In Active</h6>
+          <hr>
+          <div *ngFor="let lstdata of lstKanban let i= index">
             <div *ngIf="lstdata.inactive">
               <div class="mb-2">
-                Name: {{lstdata.name}}
-                <label> <input type="checkbox" class="mx-2" [checked]=lstdata.active
-                    (change)="_active(lstdata)">Active</label>
-                <label> <input type="checkbox" class="mx-2" [checked]=lstdata.inprocess (change)="inProcess(lstdata)">In
-                  Process</label>
+                <div class=" border-card">
+                  <div [ngClass]="{'text-success': lstdata.inactive}"> {{i+1}}: {{lstdata.name}}</div>
+                  <label class="text-info"> <input type="checkbox" class="mx-2 " [checked]=lstdata.active
+                      (change)="_active(lstdata)">Active</label>
+                  <label class="text-danger"> <input type="checkbox" class="mx-2 " [checked]=lstdata.inprocess
+                      (change)="inProcess(lstdata)">In
+                    Process</label>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
+        <!-- EndInActive -->
     </div>
   </div>
 </div>
 
-
-
-
 <div class="mx-5 my-5 ">
-  <div class="row  mx-5 mb-4">
+  <div class="row  mx-1 mb-4">
     <button class="btn btn-info btn-sm mx-5" (click)="ModalShowAdd()"><i class="fa fa-plus"></i>&nbsp; Add</button>
   </div>
   <div class="row  mx-5 ">
-    <table class=" table-bordered">
-
-      <thead>
-        <tr>
-          <th>Name</th>
-          <th>All</th>
-          <th>Active</th>
-          <th>In Process</th>
-          <th>In Active</th>
-        </tr>
-      </thead>
-
+    <table class=" table table-bordered">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>All</th>
+            <th>Active</th>
+            <th>In Process</th>
+            <th>In Active</th>
+          </tr>
+        </thead>
+      
       <tbody>
         <ng-container *ngFor="let lstdata of lstKanban">
           <tr *ngIf="lstdata.all">
@@ -120,7 +136,7 @@
       </div>
       <div class="modal-footer">
         <button class="btn btn-danger float-left btn-sm" (click)="close()">Close</button>
-        <button class="btn btn-primary btn-sm" (click)="add_Record(i)">Save</button>
+        <button class="btn btn-primary btn-sm" (click)="add_Record()">Save</button>
       </div>
     </div>
   </div>

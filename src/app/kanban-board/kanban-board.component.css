@@ -1,6 +1,11 @@
-.border-box{
-    border-style: double;
-  }
-  /* .remove-field{
-    display: contents;
-  } */
+.border-box {
+  border-style: solid;
+}
+
+.border-card {
+  border-style: ridge;
+  width: 90%;
+  margin-left: 19px;
+  padding-left: 15px;
+}
+
